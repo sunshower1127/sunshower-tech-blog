@@ -1,11 +1,12 @@
 import { index, integer, pgTable, primaryKey, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
+import { getRandomUsername } from "./random-username";
 
 export const users = pgTable(
   "user",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    username: varchar("username", { length: 256 }).unique(),
+    username: varchar("username", { length: 256 }).$defaultFn(() => getRandomUsername()),
     phone: varchar("phone", { length: 256 }),
     email: varchar("email", { length: 256 }).unique(),
     name: varchar("name", { length: 256 }),
