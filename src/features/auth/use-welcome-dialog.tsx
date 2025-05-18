@@ -1,6 +1,5 @@
 "use client";
 
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { useRef, useState } from "react";
 import { createClient } from "../supabase/client";
@@ -31,15 +30,16 @@ export function useWelcomeDialog() {
       if (inputValue) {
         const supabase = createClient();
 
-        const { data, error } = await supabase
-          .from("profile")
-          .insert({ user_id: (await supabase.auth.getUser()).data.user?.id, user_name: inputValue })
-          .select();
+        const userId = (await supabase.auth.getUser()).data.user?.id;
+
+        console.log("userId", userId);
+        console.log("inputValue", inputValue);
+
+        const { data, error } = await supabase.from("profile").insert({ user_id: userId, user_name: inputValue }).select();
         if (error) {
           console.error("Error inserting data:", error);
         } else {
           console.log("Data inserted successfully:", data);
-          revalidatePath("/", "layout");
           redirect("/");
         }
       }
