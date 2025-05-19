@@ -12,13 +12,8 @@ export default function WelcomeDialogWrapper() {
   }, [showModal]);
 
   return (
-    <>
-      <header>
-        <div>
-          <p>환영합니다! 닉네임을 설정해주세요.</p>
-        </div>
-      </header>
+    <header>
       <WelcomeDialog />
-    </>
+    </header>
   );
 }

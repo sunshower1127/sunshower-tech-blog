@@ -1,6 +1,6 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { createClient } from "../supabase/client";
 
@@ -24,6 +24,7 @@ export function useWelcomeDialog() {
 
   const WelcomeDialog = () => {
     const inputRef = useRef<HTMLInputElement>(null);
+    const router = useRouter();
 
     const handleClick = async () => {
       const inputValue = inputRef.current?.value;
@@ -35,12 +36,12 @@ export function useWelcomeDialog() {
         console.log("userId", userId);
         console.log("inputValue", inputValue);
 
-        const { data, error } = await supabase.from("profile").insert({ user_id: userId, user_name: inputValue }).select();
+        const { error } = await supabase.from("profile").insert({ user_id: userId, user_name: inputValue });
         if (error) {
           console.error("Error inserting data:", error);
         } else {
-          console.log("Data inserted successfully:", data);
-          redirect("/");
+          console.log("Data inserted successfully:");
+          router.refresh();
         }
       }
     };
