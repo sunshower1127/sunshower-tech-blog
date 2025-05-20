@@ -47,13 +47,16 @@ export function useWelcomeDialog() {
     };
 
     return (
-      <dialog ref={dialogRef}>
-        <div>
-          <h2>환영합니다!</h2>
+      <dialog className="m-auto backdrop-opacity-50" ref={dialogRef}>
+        <div className="flex flex-col items-center gap-2 p-10 shadow-2xl">
+          <h2 className="text-5xl">환영합니다!</h2>
           <p>회원가입을 축하드립니다.</p>
+          <br />
           <p>닉네임을 설정해주세요</p>
           <input ref={inputRef} type="text" placeholder="닉네임" />
-          <button onClick={handleClick}>확인</button>
+          <button className="bg-blue-500 p-1 w-12 rounded-md " onClick={handleClick}>
+            확인
+          </button>
         </div>
       </dialog>
     );
