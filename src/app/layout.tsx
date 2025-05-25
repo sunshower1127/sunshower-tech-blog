@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <AuthHeader />
           </header>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            {children}
+            <main className="max-w-160 w-full mx-auto border-x border-zinc-500 box-content">{children}</main>
           </ThemeProvider>
         </body>
       </html>
