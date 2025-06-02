@@ -21,7 +21,7 @@ export default async function AuthHeader() {
   }
 
   // 사용자 프로필 정보 조회
-  const { data: profileData, error: profileError } = await supabase.from("profile").select("user_name").eq("user_id", data.user.id);
+  const { data: profileData, error: profileError } = await supabase.from("profiles").select("user_name").eq("user_id", data.user.id);
 
   if (profileError) {
     console.error("Error fetching data:", profileError);

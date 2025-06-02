@@ -7,3 +7,4 @@ alwaysApply: true
 react, next, tailwind
 
 es-toolkit이라는 라이브러리는 lodash라이브러리와 비슷하다고 보면 됨.
+내가 요구하지 않은 ui 라이브러리는 쓰지 마.

@@ -2,7 +2,7 @@
 
 ## 인증 시스템
 
-- [ ] Supabase Auth 연동
+- [x] Supabase Auth 연동
 - [ ] 로그인/회원가입 페이지 구현
 - [ ] 소셜 로그인 구현 (Google, GitHub)
 - [ ] 사용자 프로필 관리 페이지 구현

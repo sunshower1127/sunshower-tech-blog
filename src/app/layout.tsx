@@ -1,6 +1,7 @@
 import AuthHeader from "@/features/auth/header";
 import { ThemeProvider } from "@/features/theme/theme-provider";
 import Link from "next/link";
+import { ToastContainer } from "react-toastify";
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -28,7 +29,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <AuthHeader />
           </header>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <main className="max-w-160 w-full mx-auto border-x border-zinc-500 box-content">{children}</main>
+            <ToastContainer position="bottom-center" />
+            <main className="max-w-160 w-full mx-auto">{children}</main>
           </ThemeProvider>
         </body>
       </html>

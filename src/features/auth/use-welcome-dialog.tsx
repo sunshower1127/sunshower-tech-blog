@@ -36,7 +36,7 @@ export function useWelcomeDialog() {
         console.log("userId", userId);
         console.log("inputValue", inputValue);
 
-        const { error } = await supabase.from("profile").insert({ user_id: userId, user_name: inputValue });
+        const { error } = await supabase.from("profiles").insert({ user_id: userId, user_name: inputValue });
         if (error) {
           console.error("Error inserting data:", error);
         } else {

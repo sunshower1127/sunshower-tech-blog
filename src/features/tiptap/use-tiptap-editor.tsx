@@ -13,7 +13,6 @@ import ts from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 
 import { createLowlight } from "lowlight";
-// highlight.js 스타일시트 가져오기
 
 import Details from "@tiptap-pro/extension-details";
 import DetailsContent from "@tiptap-pro/extension-details-content";
