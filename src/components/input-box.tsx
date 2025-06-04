@@ -27,7 +27,8 @@ export default function InputBox({
     }
   };
 
-  // TODO: 구글 스타일 따라하기
+  // TODO: 외부에서 value값 넣으면 isEmpty가 업데이트되지않음 -> useImperativeHandle 써보면 될듯?
+
   return (
     <div className={twMerge("relative border rounded-md", className)} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}>
       <input className="w-full h-full p-3" onChange={handleChange} {...props} />

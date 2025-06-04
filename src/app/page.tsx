@@ -1,6 +1,7 @@
 import { PostForHeader } from "@/features/post";
 import PostFlatingButton from "@/features/post/floating-button";
 import PostHeader from "@/features/post/post-header";
+import { transformRawPost } from "@/features/post/utils";
 import { createClient } from "@/features/supabase/server";
 
 export default async function Home() {
@@ -17,29 +18,18 @@ export default async function Home() {
       created_at, 
       updated_at,
       profiles (
-        id,
+        user_id,
         user_name,
-        user_icon
+        user_image
       )
       `
     )
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false }); // TODO: 페이지네이션
   if (!rawPosts) {
     return <div>{error.message}</div>;
   }
 
-  const posts = rawPosts.map(
-    (post) =>
-      ({
-        ...post,
-        author: {
-          id: post.profiles[0].id,
-          user_name: post.profiles[0].user_name,
-          user_icon: post.profiles[0].user_icon,
-        },
-        profiles: undefined, // Remove profiles to match PostForHeader type
-      } as PostForHeader)
-  );
+  const posts = rawPosts.map((rawPost) => transformRawPost<PostForHeader>(rawPost));
 
   return (
     <>

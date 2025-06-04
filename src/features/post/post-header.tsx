@@ -1,24 +1,30 @@
+import Image from "next/image";
+import Link from "next/link";
 import { PostForHeader } from ".";
+import { getDefaultUserIcon } from "./utils";
 
-export default function PostHeader({ post }: { post: PostForHeader }) {
-  // const formattedDate = new Intl.DateTimeFormat("ko-KR", {
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric",
-  // }).format(post.createdBy);
-  console.log("PostHeader post:", post);
-  return null;
+export default function PostHeader({
+  post: { author, created_at, en_title, like_count, slug, title, updated_at, view_count },
+}: {
+  post: PostForHeader;
+}) {
+  updated_at = new Date();
 
-  // return (
-  //   <li className="flex flex-col gap-6 border-b m-10 pb-10 border-zinc-500 hover:text-white">
-  //     <p className="flex flex-row gap-2 items-center">
-  //       <span className="">{formattedDate}</span>
-  //       <span className="">{author}</span>
-  //       <img className="w-8 h-8 rounded-full" src={authorIcon} alt={`${author}'s profile picture`} />
-  //     </p>
-  //     <Link className="contents" href={`/posts/${postSlug}`}>
-  //       <h1 className="text-4xl font-bold text-wrap break-keep wrap-anywhere">{title}</h1>
-  //     </Link>
-  //   </li>
-  // );
+  return (
+    <li className="flex flex-col gap-6 border-b m-10 pb-10 border-zinc-500 hover:text-white">
+      <div className="flex flex-row gap-1 items-baseline w-full">
+        <span>{created_at.toLocaleDateString(undefined, { dateStyle: "short" })}</span>
+        <span>{updated_at && "(" + updated_at.toLocaleDateString(undefined, { dateStyle: "short" }) + " 수정됨)"}</span>
+        <Link className="flex flex-row gap-2 items-baseline ml-2" href={`/users/${author?.user_name || ""}`}>
+          <Image className="rounded-full translate-y-1" width={32} height={32} alt="user image" src={author?.user_image || getDefaultUserIcon()} />
+          <div className="">{author?.user_name || "(알수없음)"}</div>
+        </Link>
+        <div className="ml-auto">{view_count} views</div>
+      </div>
+      <Link className="contents" href={`/posts/${slug}`}>
+        <h1 className="text-4xl font-bold text-wrap break-keep wrap-anywhere">{title}</h1>
+        <h2 className="text-2xl text-zinc-400 font-medium">{en_title}</h2>
+      </Link>
+    </li>
+  );
 }

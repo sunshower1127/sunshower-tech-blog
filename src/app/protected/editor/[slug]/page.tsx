@@ -2,6 +2,7 @@ import { createClient } from "@/features/supabase/server";
 import { Props } from "@/types/next";
 import { redirect } from "next/navigation";
 
+// TODO: 게시물 수정 페이지 구현
 export default async function EditorPage({ params }: Props) {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
