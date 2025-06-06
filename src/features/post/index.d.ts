@@ -13,7 +13,8 @@ export interface Post {
   html: string;
   author: User | null;
   view_count: number;
-  like_count: number;
+  // like_count: number;
+  tags: string[];
 }
 
 export type PostForHeader = Omit<Post, "id" | "html">;

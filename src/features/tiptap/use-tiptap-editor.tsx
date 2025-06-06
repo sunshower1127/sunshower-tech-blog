@@ -34,7 +34,7 @@ lowlight.register("shell", shell);
 lowlight.register("json", json);
 lowlight.register("python", python);
 
-const useTiptapEditor = (options?: { editable?: boolean; initialContent?: string | null }) =>
+const useTiptapEditor = (options?: { editable?: boolean; initialContent?: string }) =>
   useEditor({
     extensions: [
       StarterKit.configure({
@@ -127,9 +127,9 @@ const useTiptapEditor = (options?: { editable?: boolean; initialContent?: string
         },
       }),
     ],
-    content: options?.initialContent,
     immediatelyRender: false, // SSR 환경에서 hydration 불일치 방지
     editable: options?.editable,
+    content: options?.initialContent,
   });
 
 export default useTiptapEditor;

@@ -8,6 +8,7 @@ export function transformRawPost<T extends PostForHeader>(rawPost: any) {
     updated_at: rawPost.updated_at ? new Date(rawPost.updated_at) : null,
     author: rawPost.profiles as unknown as User | null,
     profiles: undefined, // Remove profiles to match PostForHeader type
+    tags: rawPost.tags ? rawPost.tags.map((tag: { name: string }) => tag.name) : [],
   } as T;
 }
 

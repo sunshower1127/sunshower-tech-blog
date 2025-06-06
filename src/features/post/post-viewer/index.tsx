@@ -5,12 +5,21 @@ import { getDefaultUserIcon } from "../utils";
 import AuthorOnly from "./author-only";
 
 // TODO: 디자인 필요
-export default async function PostViewer({ post: { author, created_at, en_title, html, title, updated_at, view_count, slug } }: { post: Post }) {
+export default async function PostViewer({
+  post: { author, created_at, en_title, html, title, updated_at, view_count, slug, tags },
+}: {
+  post: Post;
+}) {
   return (
     <div className="flex flex-col gap-5 border *:border">
       <AuthorOnly authorId={author?.user_id} slug={slug} />
       <h1>{title}</h1>
       <h2>{en_title}</h2>
+      <ul className="flex flex-wrap gap-2 *:border">
+        {tags.map((tag) => (
+          <li key={tag}>{tag}</li>
+        ))}
+      </ul>
       <div>{view_count} views</div>
       <div>{created_at.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "medium" })}</div>
       <div>{updated_at && "(" + updated_at.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "medium" }) + " 수정됨)"}</div>

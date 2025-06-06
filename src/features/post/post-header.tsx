@@ -3,11 +3,7 @@ import Link from "next/link";
 import { PostForHeader } from ".";
 import { getDefaultUserIcon } from "./utils";
 
-export default function PostHeader({
-  post: { author, created_at, en_title, like_count, slug, title, updated_at, view_count },
-}: {
-  post: PostForHeader;
-}) {
+export default function PostHeader({ post: { author, created_at, en_title, slug, title, updated_at, view_count, tags } }: { post: PostForHeader }) {
   updated_at = new Date();
 
   return (
@@ -25,6 +21,15 @@ export default function PostHeader({
         <h1 className="text-4xl font-bold text-wrap break-keep wrap-anywhere">{title}</h1>
         <h2 className="text-2xl text-zinc-400 font-medium">{en_title}</h2>
       </Link>
+      <ul className="flex flex-row gap-2 flex-wrap">
+        {tags.map((tag) => (
+          <li key={tag} className="bg-zinc-600 px-2 py-1 rounded-md text-sm">
+            <Link href={`?tags=${encodeURIComponent("[" + tag + "]")}`} className="text-white hover:text-zinc-200">
+              {tag}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </li>
   );
 }

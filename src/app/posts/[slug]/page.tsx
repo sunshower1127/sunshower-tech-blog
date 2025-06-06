@@ -8,13 +8,18 @@ export default async function PostViewPage({ params }: Props) {
   const slug = (await params).slug;
   const supabase = await createClient();
 
-  const { data: rawPost, error } = await supabase.from("posts").select("*, profiles(user_id, user_name, user_image)").eq("slug", slug).single();
+  const { data: rawPost, error } = await supabase
+    .from("posts")
+    .select("*, profiles(user_id, user_name, user_image), tags(name)")
+    .eq("slug", slug)
+    .single();
 
   if (!rawPost) {
     return <div>{error?.message}</div>;
   }
 
-  supabase.rpc("increment_view_count", { post_slug: slug });
+  // 여기에 then이나 await을 안붙이면 db에 반영이 안되고 계속 쌓임(솔직히 이해 안됨)
+  supabase.rpc("increment_view_count", { post_slug: slug }).then(({ error }) => error && console.log(error));
 
   const post = transformRawPost<Post>(rawPost);
 

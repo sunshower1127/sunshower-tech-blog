@@ -21,6 +21,9 @@ export default async function Home() {
         user_id,
         user_name,
         user_image
+      ),
+      tags (
+        name
       )
       `
     )
