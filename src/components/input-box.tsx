@@ -10,16 +10,20 @@ export default function useDebouncedInput(delay = 500) {
   const inputRef = useRef<HTMLInputElement>(null);
   const setValueRef = useRef<Dispatch<SetStateAction<string>>>(() => {});
 
-  const setValue = (newValue: string) => {
+  const handleChange = useCallback(
+    debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+      setDebouncedValue(e.target.value);
+      setIsDebouncing(false);
+    }, delay),
+    []
+  );
+
+  const setValue = useCallback((newValue: string) => {
     setValueRef.current(newValue);
     setDebouncedValue(newValue);
     setIsDebouncing(false);
-  };
-
-  const handleChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    setDebouncedValue(e.target.value);
-    setIsDebouncing(false);
-  }, delay);
+    handleChange.cancel(); // Cancel any pending debounced calls
+  }, []);
 
   const InputBox = useCallback(
     ({
